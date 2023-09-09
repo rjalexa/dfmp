@@ -24,9 +24,12 @@
 
 from flask import Flask, request, jsonify
 from pymongo import MongoClient
-from pymongo.errors import DuplicateKeyError, WriteError
+from pymongo.errors import DuplicateKeyError, WriteError, ServerSelectionTimeoutError
+from flasgger import Swagger
+
 
 app = Flask(__name__)
+swagger = Swagger(app)
 
 try:
     # MongoDB setup
@@ -37,7 +40,7 @@ try:
     db = client.flasktest  # database name
     collection = db.storedstrings  # collection name
 
-except errors.ServerSelectionTimeoutError as err:
+except ServerSelectionTimeoutError as err:
     # Handle the exception and provide a user-friendly message
     app.logger.error("Could not connect to MongoDB: %s", err)
     client = None
@@ -47,7 +50,18 @@ except errors.ServerSelectionTimeoutError as err:
 
 @app.route("/store", methods=["GET"])
 def store_string():
-    """will store the string in the mongodb backend collection"""
+    """will store the string in the mongodb backend collection
+    ---
+    parameters:
+      - name: data
+        in: query
+        type: string
+        required: true
+        description: The string to store.
+    responses:
+      200:
+        description: The result of the storage operation.
+    """
     # Get the string from the URL parameter
     input_string = request.args.get("data")
 
@@ -67,7 +81,16 @@ def store_string():
 
 @app.route("/listall", methods=["GET"])
 def list_all_strings():
-    """will list stored strings from the backend collection"""
+    """will list stored strings from the backend collection
+    ---
+    responses:
+      200:
+        description: A list of stored strings.
+        schema:
+          type: array
+          items:
+            type: string
+    """
     strings = collection.find({}, {"_id": 0, "stored_string": 1})
     stored_strings = [entry["stored_string"] for entry in strings]
     return jsonify(stored_strings)
