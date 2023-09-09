@@ -11,6 +11,7 @@ Flask = "^2.3.3"
 pymongo = "^4.5.0"
 requests = "^2.31.0"
 jsonify = "^0.5"
+flasgger = "^0.9.7.1"
 
 [build-system]
 requires = ["poetry-core"]
