@@ -39,6 +39,14 @@ which of course can be repeated with other strings.
 curl "http://localhost:12345/listall"
 ```
 
+## Swagger APIs documentation
+
+Pointing your browser to:
+```
+http://localhost:12345/apidocs
+```
+will let you explore and interact with the APIs Swaggero documentation implemented by flasgger in the endpoints docstrings.
+
 ## Data Persistence
 
 All data will be persistently stored under the `./data` directory on the host filesystem located at the project root, so that if you
