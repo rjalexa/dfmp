@@ -9,10 +9,11 @@ RUN pip install poetry
 
 # Copy in the python prereq files:
 COPY pyproject.toml poetry.lock ./
-# Install only python dependencies:
+# Install only python dependencies (skipping dev libraries):
 RUN poetry install --no-root --no-dev
 
-# Copy in everything else and install, this way if code changes the packages layer will remain untouched
+# Copy in everything else and install, this way if code changes the 
+# packages layer will remain untouched,  (skipping dev libraries)
 COPY . .
 RUN poetry install --no-dev
 

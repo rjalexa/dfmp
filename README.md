@@ -63,6 +63,7 @@ but if you haven't already you must first also run the following command to sati
 ```
 poetry install
 ```
-first.
+Please note that fill500.py is meant to be run as a client on the host, and will therefore not be copied into the container because of the content of the .gitignore file. If for any reason you wish to run it inside the container, remove additional/ 
+from .gitignore and modify the Dockerfile removing the --no-dev options.
 
 Enjoy!
