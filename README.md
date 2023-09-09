@@ -6,7 +6,7 @@ A small demo project to show a minimal Flask project managed by Poetry interacti
 
 This barebones Flask program is designed to:
 - Run in a dedicated container.
-- Operate a Flask server on port 4100, exposing the port on its host.
+- Operate a Flask server on port 4100, exposing its port as 12345 on its host.
 - Connect to a separate container named `mongo-container` running a MongoDB instance on port 27017, only within the internal Docker network
 
 The Python project relies on Poetry for dependency management as defined by the `pyproject.toml` file.
