@@ -1,6 +1,6 @@
 # dfmp
 
-A small demo project to show a minimal Flask project managed by Poetry interacting with a MongoDB, both running in separate containers, orchestrated by Docker compose.
+A small demo project to show a minimal Flask project managed by Poetry interacting with a MongoDB, both running in separate containers orchestrated by Docker compose.
 
 ## Description
 
@@ -41,4 +41,5 @@ curl "http://localhost:12345/listall"
 
 ## Data Persistence
 
-All data will be persistently stored under the `./data` directory on the host filesystem located at the project root.
+All data will be persistently stored under the `./data` directory on the host filesystem located at the project root, so that if you
+stop and later restart the container nothing will be lost.
