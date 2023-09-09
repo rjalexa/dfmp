@@ -59,7 +59,7 @@ and will inject them into the MongoDB collectio. You can run it from within the 
 ```
 poetry run python fill500.py
 ```
-but if you haven't already you must also run:
+but if you haven't already you must first also run the following command to satisfy the module 'requests' and 'faker' libraries:
 ```
 poetry install
 ```
