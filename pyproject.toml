@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "flasktest"
+version = "0.1.0"
+description = "Test a simple Flask app with a MDB backend"
+authors = ["Robert Alexander <gogonegro@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "~=3.10.0"
+Flask = "^2.3.3"
+pymongo = "^4.5.0"
+requests = "^2.31.0"
+jsonify = "^0.5"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

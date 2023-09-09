@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  flask-app:
+    build:
+      context: .
+    ports:
+      - "12345:4100"  # Map host port 12345 to container port 4100
+    depends_on:
+      - mongo-container  # Ensure MongoDB container starts first
+
+  mongo-container: # name of the MongoDB service to be used in pymongo connection string
+           # This name can be used as a hostname for inter-container communication within the Docker network created by Docker Compose.
+    image: mongo:6.0
+    volumes:
+      - ./data:/data/db  # Persist data from the container (/data/db) to the host machine (./data)
