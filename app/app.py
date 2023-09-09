@@ -5,8 +5,11 @@
     The python project is managed by poetry with its pyproject.toml file.
     
     Flask will be serving two API calls:
-    store_string: will store the provided string in the mongodb backend
-    list_all_strings: will list all stored strings from the backend
+    store_string : will store the provided string in the mongodb backend
+    list_all_strings : will list all stored strings from the backend
+    and also
+    apidocs : which will show the Swagger API documentation in a browser
+    
     
     Run the whole project from the root with "docker-compose up -d"
     

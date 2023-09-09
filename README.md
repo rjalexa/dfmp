@@ -51,3 +51,11 @@ will let you explore and interact with the APIs Swaggero documentation implement
 
 All data will be persistently stored under the `./data` directory on the host filesystem located at the project root, so that if you
 stop and later restart the container nothing will be lost.
+
+## Additional
+
+Under the additional directory you will find a small utility program which will generate 500 fake legit names and surnames
+and will inject them into the MongoDB collectio. You can run it from within the additional directory as:
+```
+poetry run python fill500.py
+```
