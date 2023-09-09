@@ -29,7 +29,9 @@ from flasgger import Swagger
 
 
 app = Flask(__name__)
-swagger = Swagger(app)
+swagger = Swagger(
+    app
+)  # to implement the apidocs endpoint; content from the functional endpoints docstrings
 
 try:
     # MongoDB setup
