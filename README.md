@@ -1,4 +1,3 @@
-```markdown
 # dfmp
 
 A small demo project to show a minimal Flask project managed by Poetry interacting with a MongoDB, both running in separate containers.
