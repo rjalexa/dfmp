@@ -1,10 +1,4 @@
-Copy code
-# Allow ./data directory
-!/data/
-
-# Ignore all files and directories inside ./data
-/data/*
-
+.gitattributes
 # File created using '.gitignore Generator' for Visual Studio Code: https://bit.ly/vscode-gig
 # Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode,macos,flask,python
 # Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode,macos,flask,python
