@@ -39,4 +39,3 @@ curl "http://localhost:12345/listall"
 ## Data Persistence
 
 All data will be persistently stored under the `./data` directory on the host filesystem located at the project root.
-```
