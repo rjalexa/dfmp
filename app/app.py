@@ -25,6 +25,7 @@
     Data will persist under the ./data directory on the host filesystem under the project root
 """
 
+import os
 from flask import Flask, request, jsonify
 from pymongo import MongoClient
 from pymongo.errors import DuplicateKeyError, WriteError, ServerSelectionTimeoutError
@@ -37,13 +38,18 @@ swagger = Swagger(
 )  # to implement the apidocs endpoint; content from the functional endpoints docstrings
 
 try:
+    # Fetching environment variables; if unset give default value
+    MONGO_HOSTNAME = os.environ.get('MONGODB_HOSTNAME', 'mongo-container')
+    MONGO_DATABASE = os.environ.get('MONGODB_DATABASE', 'flasktest')
+    MONGO_COLLECTION = os.environ.get('MONGODB_COLLECTION','storedstrings')
+
     # MongoDB setup
     client = MongoClient(
-        "mongodb://mongo-container:27017/", serverSelectionTimeoutMS=5000
-    )  # the hostname is the container service name as in docker-compose.yml
-    client.server_info()  # This will trigger a connection attempt to see if mongo can be reached or trigger the exception
-    db = client.flasktest  # database name
-    collection = db.storedstrings  # collection name
+        f"mongodb://{MONGO_HOSTNAME}:27017/", serverSelectionTimeoutMS=5000
+    )
+    client.server_info()  # This will trigger a connection attempt or trigger the exception
+    db = client[MONGO_DATABASE]  # database name from environment variable
+    collection = db[MONGO_COLLECTION]  # collection name
 
 except ServerSelectionTimeoutError as err:
     # Handle the exception and provide a user-friendly message

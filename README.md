@@ -7,23 +7,24 @@ A small demo project to show a minimal Flask project managed by Poetry interacti
 This barebones Flask program is designed to:
 - Run in a dedicated container.
 - Operate a Flask server on port 4100, exposing its port as 12345 on its host.
-- Connect to a separate container named `mongo-container` running a MongoDB instance on port 27017, only within the internal Docker network
+- Connect to a separate container named `mongo-container` (as defined in docker-compose.yml) running a MongoDB instance on port 27017, reachable only within the internal Docker network
 
-The Python project relies on Poetry for dependency management as defined by the `pyproject.toml` file.
+The Python project relies on Poetry for python dependency management as defined by the `pyproject.toml` file.
 
 ## API Endpoints
 
-The Flask app will serve two API endpoints:
-1. `store_string`: Accepts a string and stores it in the MongoDB backend.
-2. `list_all_strings`: Retrieves and lists all stored strings from the backend.
+The Flask app will serve three API endpoints:
+1. `store`: Accepts a string and stores it in the MongoDB backend.
+2. `list_all`: Retrieves and lists all stored strings from the backend.
+3. `apidocs`: will show the Swagger interface in a browser to document/test the APIs
 
 ## Running the Project
 
 You can run the entire project from its root directory using the following command:
 ```
-docker-compose up -d
+docker compose up -d
 ```
-on older docker versions the syntax could be 'docker compose up  -d'
+on older docker versions the syntax could be 'docker-compose up  -d'
 
 ## Testing
 
@@ -33,6 +34,8 @@ To test the project, use `curl` (or any other REST client) from the same host ru
 curl "http://localhost:12345/store?data=Isaac-Newton"
 ```
 which of course can be repeated with other strings.
+
+You can also use the small python utility provided in the additional directory (see below) to generate 500 random names.
 
 - Listing all stored strings:
 ```
@@ -61,7 +64,7 @@ poetry run python fill500.py
 ```
 but if you haven't already you must first also run the following command to satisfy the module 'requests' and 'faker' libraries:
 ```
-poetry install
+poetry install requests faker
 ```
 Please note that fill500.py is meant to be run as a client on the host, and will therefore not be copied into the container because of the content of the .gitignore file. If for any reason you wish to run it inside the container, remove additional/ 
 from .gitignore and modify the Dockerfile removing the --no-dev options.

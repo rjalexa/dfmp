@@ -1,4 +1,4 @@
-version: '3'
+version: '3.4'  # '3.4' or later is required for 'condition' in 'depends_on'
 
 services:
   flask-app:
@@ -13,15 +13,21 @@ services:
       APP_ENV: "prod"
       APP_DEBUG: "False"
       APP_PORT: 4100
-      MONGODB_DATABASE: flasktest
       MONGODB_HOSTNAME: mongodb
+      MONGODB_DATABASE: flasktest
+      MONGODB_COLLECTION: storedstrings
     depends_on:
-      - mongo-container  # Ensure MongoDB container starts first
+      mongo-container:
+        condition: service_healthy  # Ensure MongoDB container is healthy before starting
 
-  mongo-container: # name of the MongoDB service to be used in pymongo connection string
-           # This name can be used as a hostname for inter-container communication within the Docker network created by Docker Compose.
+  mongo-container: 
     image: mongo:6.0
     container_name: mongo-container
     restart: unless-stopped
     volumes:
       - ./data:/data/db  # Persist data from the container (/data/db) to the host machine (./data)
+    healthcheck: # since flask-app depends on it we want to know this is alive and well
+      test: echo 'db.runCommand("ping").ok' | mongo --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
