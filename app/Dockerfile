@@ -17,6 +17,6 @@ RUN poetry install --no-root --no-dev
 COPY . /app/
 RUN poetry install --no-dev
 
-# Run app.py  under poetry when the container launches
+# Use poetry to run app/app.py behind gunicorn
 CMD ["poetry", "run", "gunicorn", "app.app:app", "-b", "0.0.0.0:4100", "--workers=4"]
 
