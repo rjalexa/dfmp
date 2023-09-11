@@ -2,6 +2,10 @@
 
 A small demo project to show a minimal Flask project managed by Poetry interacting with a MongoDB, both running in separate containers orchestrated by Docker compose.
 
+In some time I will try to expand it to this full architecture, with end user authentication based on JWT. 
+![Component model](https://i.imgur.com/YcVQsQW.png)
+For now only Flask, Gunicorn, MongoDB in two containers, orchestrated by Docker Compose is ready.
+
 ## Description
 
 This barebones Flask program is designed to:
