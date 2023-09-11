@@ -12,6 +12,7 @@ pymongo = "^4.5.0"
 requests = "^2.31.0"
 jsonify = "^0.5"
 flasgger = "^0.9.7.1"
+gunicorn = "^21.2.0"
 
 [tool.poetry.dev-dependencies]
 faker = "^19.6.0" # this is used only on the host by the fill500.py program

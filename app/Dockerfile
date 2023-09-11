@@ -17,10 +17,6 @@ RUN poetry install --no-root --no-dev
 COPY . .
 RUN poetry install --no-dev
 
-# Make port 4100 available to the world outside this container
-EXPOSE 4100
-# Define environment variable ... not sure this is really needed
-ENV NAME FlaskApp
 # Run app.py  under poetry when the container launches
-CMD ["poetry", "run", "python", "app/app.py"]
+CMD ["poetry", "run", "gunicorn", "app.app:app", "-b", "0.0.0.0:4100", "--workers=4"]
 
