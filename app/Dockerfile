@@ -1,11 +1,15 @@
 # Use an official Python runtime as a parent image
 FROM python:3.10-slim
 
+ENV PYTHONUNBUFFERED=1 \
+    POETRY_VERSION=1.6.1
+
+# Install poetry
+RUN pip install "poetry==$POETRY_VERSION" && \
+    poetry config virtualenvs.create false
+    
 # Set the working directory to /app
 WORKDIR /app
-
-# Install poetry: Could be good to pin it to known release
-RUN pip install poetry
 
 # Copy in the python prereq files:
 COPY ./pyproject.toml ./poetry.lock /app/
