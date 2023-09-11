@@ -8,13 +8,13 @@ WORKDIR /app
 RUN pip install poetry
 
 # Copy in the python prereq files:
-COPY pyproject.toml poetry.lock ./
+COPY ./pyproject.toml ./poetry.lock /app/
 # Install only python dependencies (skipping dev libraries):
 RUN poetry install --no-root --no-dev
 
 # Copy in everything else and install, this way if code changes the 
 # packages layer will remain untouched,  (skipping dev libraries)
-COPY . .
+COPY . /app/
 RUN poetry install --no-dev
 
 # Run app.py  under poetry when the container launches

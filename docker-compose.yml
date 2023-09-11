@@ -3,17 +3,14 @@ version: '3.4'  # '3.4' or later is required for 'condition' in 'depends_on'
 services:
   flask-app:
     build:
-      context: app
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: app/Dockerfile
     container_name: flask-app
     restart: unless-stopped
     ports:
-      - "12345:${APP_PORT}"  # Map host port 12345 to container port defined in APP_PORT
+      - "12345:${APP_PORT}"  # Map host port 12345 to container port defined in APP_PORT in .env
     environment:
-      APP_ENV: "prod"
-      APP_DEBUG: "False"
-      APP_PORT: 4100
-      MONGODB_HOSTNAME: mongodb
+      MONGODB_HOSTNAME: mongo-container
       MONGODB_DATABASE: flasktest
       MONGODB_COLLECTION: storedstrings
     depends_on:
@@ -27,7 +24,7 @@ services:
     volumes:
       - ./data:/data/db  # Persist data from the container (/data/db) to the host machine (./data)
     healthcheck: # since flask-app depends on it we want to know this is alive and well
-      test: echo 'db.runCommand("ping").ok' | mongo --quiet
+      test: echo 'db.runCommand("ping").ok' | mongosh --quiet
       interval: 10s
       timeout: 5s
       retries: 5
